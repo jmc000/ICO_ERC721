@@ -1,19 +1,18 @@
 pragma solidity ^0.6.0;
 
 import "./annexe/Context.sol";
-import "./annexe/SafeMath.sol";
 import "./IERC721.sol";
-
-
-/*import "../../utils/Address.sol";
-import "../../drafts/Counters.sol";
-import "../../introspection/ERC165.sol";*/
+import "./IERC721Receiver.sol";
+import "./annexe/math/SafeMath.sol";
+import "./annexe/Address.sol";
+import "./annexe/Counters.sol";
+import "./ERC165.sol";
 
 /**
  * @title ERC721 Non-Fungible Token Standard basic implementation
  * @dev see https://eips.ethereum.org/EIPS/eip-721
  */
-contract ERC721 is Context, ERC165, IERC721Full {
+contract ERC721 is Context, ERC165, IERC721 {
     using SafeMath for uint256;
     using Address for address;
     using Counters for Counters.Counter;
@@ -23,7 +22,7 @@ contract ERC721 is Context, ERC165, IERC721Full {
     bytes4 private constant _ERC721_RECEIVED = 0x150b7a02;
 
     // Mapping from token ID to owner
-    mapping (uint256 => address) private _tokenOwner;
+    mapping (uint256 => address) public _tokenOwner;
 
     // Mapping from token ID to approved address
     mapping (uint256 => address) private _tokenApprovals;
@@ -332,7 +331,6 @@ contract ERC721 is Context, ERC165, IERC721Full {
      * @param _data bytes optional data to send along with the call
      * @return bool whether the call correctly returned the expected magic value
      */
-     /*
     function _checkOnERC721Received(address from, address to, uint256 tokenId, bytes memory _data)
         internal virtual returns (bool)
     {
@@ -361,7 +359,7 @@ contract ERC721 is Context, ERC165, IERC721Full {
             bytes4 retval = abi.decode(returndata, (bytes4));
             return (retval == _ERC721_RECEIVED);
         }
-    }*/
+    }
 
     function _approve(address to, uint256 tokenId) private {
         _tokenApprovals[tokenId] = to;
