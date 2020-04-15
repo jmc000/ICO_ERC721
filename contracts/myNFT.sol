@@ -13,6 +13,7 @@ contract myNFT is ERC721 {
     }
 
     struct animal {
+        address owner;
         uint256 animalId;
         string kindOfAnimal;
         string name;
@@ -31,7 +32,7 @@ contract myNFT is ERC721 {
         _;
     }
 
-    event newBreederRegistred(address _addresse);
+    event newBreederRegistred(address _address);
 
     function registerBreeder(address to) public onlyOwner() {
         breederList[to] = true;
